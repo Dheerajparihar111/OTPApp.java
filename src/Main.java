@@ -1,12 +1,13 @@
-import java.sql.SQLOutput;
 import java.util.*;
 import java.security.SecureRandom;
 class Homepage{
 void  Homepage(){
-        System.out.println("Enter your choice");
-        System.out.println("1) Randomly Generated OTP");
-        System.out.println("2) Secure OTP");
-        System.out.println("3) Exit");
+        System.out.println("=============================");
+        System.out.println("| 1) Randomly Generated OTP |");
+        System.out.println("| 2) Secure OTP             |");
+        System.out.println("| 3) Exit                   |");
+        System.out.println("=============================");
+        System.out.print("Enter Your Choice :");
     }
 }
 public class Main {
@@ -26,7 +27,7 @@ public class Main {
                     break;
                 case 2:
                     int otp = secureRandom.nextInt(10000);
-                    System.out.println("The  Generated OTP:" + otp);
+                    System.out.println("The Generated OTP:" + otp);
                     break;
                 case 3:
                     System.out.println("Thank You For Using OTP generating App");
