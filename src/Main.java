@@ -22,16 +22,52 @@ public class Main {
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
-                    int OTP = random.nextInt(10000);
-                    System.out.println("The Generated OTP:" + OTP);
-                    break;
+                    System.out.println("1)Randomly Generated 4-Digit OTP");
+                    System.out.println("2)Randomly Generated 6-Digit OTP");
+                    System.out.println("3)Randomly Generated 8-Digit OTP");
+                    System.out.print("Enter your choice :");
+                     choice =input.nextInt();
+                     switch (choice){
+                         case 1:
+                              int OTP4 = random.nextInt(10000);
+                              System.out.println("The Generated OTP:" + OTP4);
+                              break;
+                         case 2:
+                            int OTP6 = random.nextInt(1000000);
+                             System.out.println("The Generated OTP:" + OTP6);
+                             break;
+                         case 3:
+                             int OTP8 = random.nextInt(100000000);
+                             System.out.println("The Generated OTP:" + OTP8);
+                             break;
+
+                     }break;
+
                 case 2:
-                    int otp = secureRandom.nextInt(10000);
-                    System.out.println("The Generated OTP:" + otp);
-                    break;
+                    System.out.println("1)Randomly Generated 4-Digit OTP");
+                    System.out.println("2)Randomly Generated 6-Digit OTP");
+                    System.out.println("3)Randomly Generated 8-Digit OTP");
+                    System.out.print("Enter your Choice: ");
+                     choice =input.nextInt();
+                     switch (choice){
+                         case  1:
+                             int otp4 = secureRandom.nextInt(10000);
+                             System.out.println("The Generated OTP:" + otp4);
+                             break;
+                         case 2:
+                             int otp6 = secureRandom.nextInt(1000000);
+                             System.out.println("The Generated OTP:" + otp6);
+                             break;
+                         case 3:
+                             int otp8 = secureRandom.nextInt(100000000);
+                             System.out.println("The Generated OTP:" + otp8);
+                             break;
+                     }break;
+
                 case 3:
                     System.out.println("Thank You For Using OTP generating App");
                     System.exit(0);
+
             }
         }
 
