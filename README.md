@@ -84,3 +84,5 @@ Displays remaining time in real-time
 Automatically expires OTP after timeout
 
 Stops when OTP is verified
+for using OTPApp 
+https://github.com/Dheerajparihar111/OTPApp.java
