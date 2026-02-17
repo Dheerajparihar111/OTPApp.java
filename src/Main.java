@@ -10,7 +10,7 @@ public class Main {
         OTP otp = service.generateOTP();
 
         System.out.println("Generated OTP: " + otp.getCode());
-        System.out.println("OTP valid for 60 seconds.");
+        System.out.println("OTP is valid for 60 seconds.");
 
         System.out.print("Enter OTP: ");
         String input = scanner.nextLine();
@@ -20,7 +20,7 @@ public class Main {
         if (isValid) {
             System.out.println("OTP Verified Successfully!");
         } else {
-            System.out.println("Invalid OTP.");
+            System.out.println("Invalid or Expired OTP.");
         }
 
         scanner.close();
