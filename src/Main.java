@@ -7,12 +7,13 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         OTPService service = new OTPService();
-
-        System.out.println("Select OTP Length:");
-        System.out.println("1. 4-digit OTP");
-        System.out.println("2. 6-digit OTP");
-        System.out.println("3. 8-digit OTP");
-        System.out.print("Enter choice: ");
+        System.out.println("=====================");
+        System.out.println("| Select OTP Length:|");
+        System.out.println("| 1) 4-digit OTP    |");
+        System.out.println("| 2) 6-digit OTP    |");
+        System.out.println("| 3) 8-digit OTP    |");
+        System.out.println("=====================");
+        System.out.print("Enter choice:");
 
         int choice = scanner.nextInt();
         scanner.nextLine(); // consume newline
@@ -60,7 +61,9 @@ public class Main {
         } else {
             boolean valid = service.verifyOTP(otp, result);
             if (valid) {
-                System.out.println("OTP Verified Successfully!");
+                System.out.println("______________________________");
+                System.out.println("| OTP Verified Successfully! |");
+                System.out.println("------------------------------");
             } else {
                 System.out.println("Invalid OTP.");
             }
