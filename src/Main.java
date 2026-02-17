@@ -11,6 +11,7 @@ public class Main {
         System.out.println("Select OTP Length:");
         System.out.println("1. 4-digit OTP");
         System.out.println("2. 6-digit OTP");
+        System.out.println("3. 8-digit OTP");
         System.out.print("Enter choice: ");
 
         int choice = scanner.nextInt();
@@ -21,7 +22,9 @@ public class Main {
             length = 4;
         } else if (choice == 2) {
             length = 6;
-        } else {
+        }else if (choice == 3) {
+            length = 8;
+        }else {
             System.out.println("Invalid choice. Defaulting to 6-digit OTP.");
             length = 6;
         }
