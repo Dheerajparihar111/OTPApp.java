@@ -1,7 +1,7 @@
 public class OTP {
 
-    private String code;
-    private long expiryTime;
+    private final String code;
+    private final long expiryTime;
 
     public OTP(String code, long expiryTime) {
         this.code = code;
