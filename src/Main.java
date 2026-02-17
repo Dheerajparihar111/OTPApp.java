@@ -12,6 +12,7 @@ public class Main {
         System.out.println("| 1) 4-digit OTP    |");
         System.out.println("| 2) 6-digit OTP    |");
         System.out.println("| 3) 8-digit OTP    |");
+        System.out.println("| 4) EXIT           |");
         System.out.println("=====================");
         System.out.print("Enter choice:");
 
@@ -25,6 +26,10 @@ public class Main {
             length = 6;
         }else if (choice == 3) {
             length = 8;
+        }else if (choice == 4) {
+            System.out.println("THANK YOU FOR USING OTP APP");
+            System.exit(0);
+            length = 0;
         }else {
             System.out.println("Invalid choice. Defaulting to 6-digit OTP.");
             length = 6;
