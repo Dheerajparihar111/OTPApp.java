@@ -1,4 +1,4 @@
-public class OTPType {
+public enum OTPType {
     NUMERIC,
     ALPHANUMERIC
 }

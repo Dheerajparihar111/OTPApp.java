@@ -1,81 +1,74 @@
 import java.util.Scanner;
-import java.util.concurrent.*;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    private static final int MAX_ATTEMPTS = 3;
+
+    public static void Main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         OTPService service = new OTPService();
-        System.out.println("=====================");
-        System.out.println("| Select OTP Length:|");
-        System.out.println("| 1) 4-digit OTP    |");
-        System.out.println("| 2) 6-digit OTP    |");
-        System.out.println("| 3) 8-digit OTP    |");
-        System.out.println("| 4) EXIT           |");
-        System.out.println("=====================");
-        System.out.print("Enter choice:");
 
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+        // OTP Length Selection
+        System.out.println("Select OTP Length:");
+        System.out.println("1. 4 characters");
+        System.out.println("2. 6 characters");
+        System.out.print("Enter choice: ");
 
-        int length;
-        if (choice == 1) {
-            length = 4;
-        } else if (choice == 2) {
-            length = 6;
-        }else if (choice == 3) {
-            length = 8;
-        }else if (choice == 4) {
-            System.out.println("THANK YOU FOR USING OTP APP");
-            System.exit(0);
-            length = 0;
-        }else {
-            System.out.println("Invalid choice. Defaulting to 6-digit OTP.");
-            length = 6;
-        }
+        int lengthChoice = scanner.nextInt();
+        scanner.nextLine();
 
-        OTP otp = service.generateOTP(length);
+        int length = (lengthChoice == 1) ? 4 : 6;
+
+        // OTP Type Selection
+        System.out.println("\nSelect OTP Type:");
+        System.out.println("1. Digits only");
+        System.out.println("2. Alphanumeric");
+        System.out.print("Enter choice: ");
+
+        int typeChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        OTPType type = (typeChoice == 1)
+                ? OTPType.NUMERIC
+                : OTPType.ALPHANUMERIC;
+
+        OTP otp = service.generateOTP(length, type);
 
         System.out.println("\nGenerated OTP: " + otp.getCode());
-        System.out.println("OTP is valid for 60 seconds.");
+        System.out.println("OTP valid for 60 seconds.");
+        System.out.println("Maximum attempts allowed: 3");
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        int attempts = 0;
+        boolean verified = false;
 
-        Callable<String> inputTask = () -> {
-            System.out.print("Enter OTP: ");
-            return scanner.nextLine();
-        };
+        while (attempts < MAX_ATTEMPTS) {
 
-        Callable<String> timerTask = () -> {
-            Thread.sleep(60000);
-            return "EXPIRED";
-        };
+            if (service.isExpired(otp)) {
+                System.out.println("\nOTP Expired.");
+                break;
+            }
 
-        String result;
-        try {
-            result = executor.invokeAny(
-                    java.util.Arrays.asList(inputTask, timerTask)
-            );
-        } catch (Exception e) {
-            result = "EXPIRED";
-        }
+            System.out.print("\nEnter OTP: ");
+            String input = scanner.nextLine();
 
-        if ("EXPIRED".equals(result)) {
-            System.out.println("\nOTP Expired.");
-        } else {
-            boolean valid = service.verifyOTP(otp, result);
-            if (valid) {
-                System.out.println("______________________________");
-                System.out.println("| OTP Verified Successfully! |");
-                System.out.println("------------------------------");
+            attempts++;
+
+            if (service.verifyOTP(otp, input)) {
+                verified = true;
+                break;
             } else {
-                System.out.println("Invalid OTP.");
+                System.out.println("Invalid OTP. Attempts left: "
+                        + (MAX_ATTEMPTS - attempts));
             }
         }
 
-        executor.shutdownNow();
-        scanner.close();
+        if (verified) {
+            System.out.println("\nOTP Verified Successfully!");
+        } else if (attempts >= MAX_ATTEMPTS) {
+            System.out.println("\nAccount Locked. Maximum attempts exceeded.");
+        }
 
+        scanner.close();
     }
 }
