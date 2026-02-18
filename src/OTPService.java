@@ -3,26 +3,30 @@ import java.security.SecureRandom;
 public class OTPService {
 
     private static final SecureRandom random = new SecureRandom();
+    private static final long VALIDITY_DURATION = 60000; // 60 seconds
+
+    // Allowed characters (uppercase + digits)
+    private static final String CHAR_POOL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public OTP generateOTP(int length) {
 
-        int bound = (int) Math.pow(10, length);
-        int otpValue = random.nextInt(bound);
+        StringBuilder otpBuilder = new StringBuilder();
 
-        String format = "%0" + length + "d";
-        String otpCode = String.format(format, otpValue);
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(CHAR_POOL.length());
+            otpBuilder.append(CHAR_POOL.charAt(index));
+        }
 
-        long expiryTime = System.currentTimeMillis() + 60000;
+        long expiryTime = System.currentTimeMillis() + VALIDITY_DURATION;
 
-        return new OTP(otpCode, expiryTime);
+        return new OTP(otpBuilder.toString(), expiryTime);
     }
 
     public boolean verifyOTP(OTP otp, String input) {
+        return otp.getCode().equalsIgnoreCase(input);
+    }
 
-        if (System.currentTimeMillis() > otp.getExpiryTime()) {
-            return false;
-        }
-
-        return otp.getCode().equals(input);
+    public boolean isExpired(OTP otp) {
+        return System.currentTimeMillis() > otp.getExpiryTime();
     }
 }
