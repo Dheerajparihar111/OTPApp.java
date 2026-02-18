@@ -1,88 +1,139 @@
-🔐 Java OTP Generator (CLI Application)
+🔐 OTP Authentication System (Java CLI)
 
-A secure, object-oriented One-Time Password (OTP) generation and verification system built in Java.
-The application generates a 6-digit OTP using a cryptographically secure algorithm and includes a real-time countdown timer with automatic expiry handling.
+A secure, modular, and extensible One-Time Password (OTP) authentication system built in Java.
+
+This implementation simulates real-world authentication logic including:
+
+Configurable OTP length (4 or 6 characters)
+
+Numeric or alphanumeric OTP types
+
+60-second expiry window
+
+Maximum 3 verification attempts
+
+Secure random generation
+
+Clean separation of concerns (OOP design)
 
 📌 Features
+🔢 OTP Length Selection
 
-Secure 6-digit OTP generation
+4-character OTP
 
-Cryptographically strong random number generation (SecureRandom)
+6-character OTP
 
-60-second OTP expiry
+🔐 OTP Type Selection
 
-Live countdown timer (60 → 0)
+Numeric (0–9)
 
-OTP verification
+Alphanumeric (A–Z, 0–9)
 
-Clean OOP architecture
+⏳ Expiry Control
 
-Multithreading for countdown timer
+OTP automatically expires after 60 seconds
 
-Console-based user interaction
+Expiry validated before each verification attempt
+
+🚫 Attempt Limiting
+
+Maximum 3 attempts
+
+Account lock after exceeding limit
+
+🔒 Security
+
+Uses SecureRandom (cryptographically strong RNG)
+
+Case-insensitive verification for usability
+
+Immutable OTP model object
 
 🏗 Project Structure
-otp-app
+OTPApp/
 │
-├── OTPApp.java        (Main application entry point)
-├── OTPService.java    (OTP generation & verification logic)
-└── OTP.java           (OTP model class)
+├── Main.java          # CLI entry point
+├── OTPService.java    # Business logic layer
+├── OTP.java           # OTP data model
+├── OTPType.java       # Enum for OTP types
+└── README.md
 
 🧠 Architecture Overview
-OTP.java
+1️⃣ Main (Presentation Layer)
 
-Model class that stores:
+Handles user interaction
 
-OTP code
+Collects OTP configuration input
 
-Expiry timestamp
+Controls verification attempts
 
-OTPService.java
+Enforces expiry and lock logic
 
-Business logic layer:
+2️⃣ OTPService (Business Logic Layer)
 
 Generates OTP
 
-Sets expiry time
+Validates input
 
-Verifies user input
+Checks expiration
 
-Checks expiry condition
+Encapsulates security logic
 
-OTPApp.java
+3️⃣ OTP (Data Model)
 
-Presentation layer:
+Immutable object
 
-Handles user input
+Stores:
 
-Starts countdown thread
+code
 
-Displays results
+expiryTime
 
-🔐 Security Implementation
+4️⃣ OTPType (Enum)
 
-The application uses:
+Provides type-safe OTP generation modes:
 
-java.security.SecureRandom
+public enum OTPType {
+    NUMERIC,
+    ALPHANUMERIC
+}
+
+⚙️ How It Works
+
+User selects:
+
+OTP length (4 or 6)
+
+OTP type (Numeric or Alphanumeric)
+
+System generates OTP using:
+
+SecureRandom
 
 
-instead of:
+OTP validity duration:
 
-java.util.Random
+60 seconds
 
 
-SecureRandom provides cryptographically strong random number generation suitable for authentication systems.
+User gets:
 
-⏳ Countdown Timer
+Maximum 3 attempts
 
-Runs on a separate thread
 
-Decrements from 60 to 0
+System checks:
 
-Displays remaining time in real-time
+Expiry status
 
-Automatically expires OTP after timeout
+Attempt count
 
-Stops when OTP is verified
-for using OTPApp 
-https://github.com/Dheerajparihar111/OTPApp.java
+Input match
+
+🔢 Security Strength Comparison
+Type	Length	Possible Combinations
+Numeric	4	10⁴ = 10,000
+Numeric	6	10⁶ = 1,000,000
+Alphanumeric	4	36⁴ = 1,679,616
+Alphanumeric	6	36⁶ = 2,176,782,336
+
+Alphanumeric OTPs significantly increase brute-force resistance.
