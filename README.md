@@ -137,3 +137,7 @@ Alphanumeric	4	36⁴ = 1,679,616
 Alphanumeric	6	36⁶ = 2,176,782,336
 
 Alphanumeric OTPs significantly increase brute-force resistance.
+OUT PUT IMAGE
+<img width="1911" height="1023" alt="OTPApp output3" src="https://github.com/user-attachments/assets/95afc10d-992c-4835-99e4-88c045d50bef" />
+<img width="1911" height="1023" alt="OTPApp output3" src="https://github.com/user-attachments/assets/95afc10d-992c-4835-99e4-88c045d50bef" />
+
