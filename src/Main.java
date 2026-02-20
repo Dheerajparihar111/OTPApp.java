@@ -5,10 +5,51 @@ public class Main {
     private static final int MAX_ATTEMPTS = 3;
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
+        OTPService service = new OTPService();
+
+        System.out.println("=================================");
+        System.out.println("         OTP AUTH SYSTEM         ");
+        System.out.println("=================================");
+
+        // ---------------- OTP LENGTH ----------------
+        System.out.println("\nSelect OTP Length:");
+        System.out.println("1) 4 characters");
+        System.out.println("2) 6 characters");
+        System.out.println("3) 8 characters");
+        System.out.print("Enter choice: ");
+
+        int lengthChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        int length;
+        switch (lengthChoice) {
+            case 1: length = 4; break;
+            case 2: length = 6; break;
+            case 3: length = 8; break;
+            default:
+                System.out.println("Invalid choice. Defaulting to 6 characters.");
+                length = 6;
+        }
+
+        // ---------------- OTP TYPE ----------------
+        System.out.println("\nSelect OTP Type:");
+        System.out.println("1) Digits only");
+        System.out.println("2) Alphanumeric");
+        System.out.print("Enter choice: ");
+
+        int typeChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        OTPType type = (typeChoice == 1)
+                ? OTPType.NUMERIC
+                : OTPType.ALPHANUMERIC;
+
+        // ---------------- DELIVERY MODE ----------------
         System.out.println("\nSelect Delivery Mode:");
-        System.out.println("1. Display on Console");
-        System.out.println("2. Send to Mobile");
+        System.out.println("1) Display on Console");
+        System.out.println("2) Send to Mobile (Simulation)");
         System.out.print("Enter choice: ");
 
         int deliveryChoice = scanner.nextInt();
@@ -18,6 +59,7 @@ public class Main {
                 ? DeliveryMode.MOBILE
                 : DeliveryMode.CONSOLE;
 
+        // ---------------- GENERATE OTP ----------------
         OTP otp = service.generateOTP(length, type);
 
         String mobileNumber = null;
@@ -32,42 +74,7 @@ public class Main {
         System.out.println("\nOTP valid for 60 seconds.");
         System.out.println("Maximum attempts allowed: 3");
 
-        //Scanner scanner = new Scanner(System.in);
-        OTPService service = new OTPService();
-        System.out.println("=====================");
-        System.out.println("| Select OTP Length:|");
-        System.out.println("| 1) 4-characters   |");
-        System.out.println("| 2) 6-characters    |");
-        System.out.println("| 3) 8-characters   |");
-        System.out.println("=====================");
-        System.out.print("Enter choice: ");
-
-        int lengthChoice = scanner.nextInt();
-        scanner.nextLine();
-
-        int length = (lengthChoice == 1) ? 4 : 6;
-
-        // OTP Type Selection
-        System.out.println("====================");
-        System.out.println("| Select OTP Type: |");
-        System.out.println("| 1) Digits only   |");
-        System.out.println("| 2) Alphanumeric  |");
-        System.out.println("====================");
-        System.out.print("Enter choice: ");
-
-        int typeChoice = scanner.nextInt();
-        scanner.nextLine();
-
-        OTPType type = (typeChoice == 1)
-                ? OTPType.NUMERIC
-                : OTPType.ALPHANUMERIC;
-
-        OTP otp = service.generateOTP(length, type);
-
-        System.out.println("\nGenerated OTP: " + otp.getCode());
-        System.out.println("OTP valid for 60 seconds.");
-        System.out.println("Maximum attempts allowed: 3");
-
+        // ---------------- VERIFICATION LOOP ----------------
         int attempts = 0;
         boolean verified = false;
 
@@ -93,9 +100,9 @@ public class Main {
         }
 
         if (verified) {
-            System.out.println("______________________________");
-            System.out.println("| OTP Verified Successfully! |");
-            System.out.println("------------------------------");
+            System.out.println("\n===============================");
+            System.out.println("  OTP Verified Successfully!  ");
+            System.out.println("===============================");
         } else if (attempts >= MAX_ATTEMPTS) {
             System.out.println("\nAccount Locked. Maximum attempts exceeded.");
         }

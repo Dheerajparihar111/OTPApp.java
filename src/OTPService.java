@@ -25,6 +25,7 @@ public class OTPService {
 
         return new OTP(otpBuilder.toString(), expiryTime);
     }
+
     public void deliverOTP(OTP otp, DeliveryMode mode, String mobileNumber) {
 
         if (mode == DeliveryMode.MOBILE) {
