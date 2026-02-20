@@ -9,15 +9,17 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         OTPService service = new OTPService();
 
-        System.out.println("=================================");
+        System.out.println("_________________________________");
         System.out.println("         OTP AUTH SYSTEM         ");
         System.out.println("=================================");
 
         // ---------------- OTP LENGTH ----------------
-        System.out.println("\nSelect OTP Length:");
-        System.out.println("1) 4 characters");
-        System.out.println("2) 6 characters");
-        System.out.println("3) 8 characters");
+        System.out.println("=====================");
+        System.out.println("| Select OTP Length:|");
+        System.out.println("| 1) 4 characters   |");
+        System.out.println("| 2) 6 characters   |");
+        System.out.println("| 3) 8 characters   |");
+        System.out.println("=====================");
         System.out.print("Enter choice: ");
 
         int lengthChoice = scanner.nextInt();
@@ -34,9 +36,11 @@ public class Main {
         }
 
         // ---------------- OTP TYPE ----------------
-        System.out.println("\nSelect OTP Type:");
-        System.out.println("1) Digits only");
-        System.out.println("2) Alphanumeric");
+        System.out.println("====================");
+        System.out.println("| Select OTP Type: |");
+        System.out.println("| 1) Digits only   |");
+        System.out.println("| 2) Alphanumeric  |");
+        System.out.println("====================");
         System.out.print("Enter choice: ");
 
         int typeChoice = scanner.nextInt();
@@ -47,9 +51,11 @@ public class Main {
                 : OTPType.ALPHANUMERIC;
 
         // ---------------- DELIVERY MODE ----------------
-        System.out.println("\nSelect Delivery Mode:");
-        System.out.println("1) Display on Console");
-        System.out.println("2) Send to Mobile (Simulation)");
+        System.out.println("=================================");
+        System.out.println("| Select Delivery Mode:         |");
+        System.out.println("| 1) Display on Console         |");
+        System.out.println("| 2) Send to Mobile (Simulation)|");
+        System.out.println("=================================");
         System.out.print("Enter choice: ");
 
         int deliveryChoice = scanner.nextInt();
@@ -100,9 +106,9 @@ public class Main {
         }
 
         if (verified) {
-            System.out.println("\n===============================");
-            System.out.println("  OTP Verified Successfully!  ");
-            System.out.println("===============================");
+            System.out.println("\n______________________________");
+            System.out.println(" | OTP Verified Successfully! | ");
+            System.out.println("--------------------------------");
         } else if (attempts >= MAX_ATTEMPTS) {
             System.out.println("\nAccount Locked. Maximum attempts exceeded.");
         }

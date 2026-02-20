@@ -13,6 +13,6 @@ public class SMSService {
         System.out.println("OTP sent successfully!");
 
         // For simulation/testing purpose only
-        System.out.println("(Simulation) OTP delivered: " + otpCode);
+        System.out.println("(Simulation) OTP delivered: " + "|"+otpCode+"|");
     }
 }
