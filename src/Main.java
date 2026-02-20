@@ -5,8 +5,34 @@ public class Main {
     private static final int MAX_ATTEMPTS = 3;
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\nSelect Delivery Mode:");
+        System.out.println("1. Display on Console");
+        System.out.println("2. Send to Mobile");
+        System.out.print("Enter choice: ");
+
+        int deliveryChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        DeliveryMode mode = (deliveryChoice == 2)
+                ? DeliveryMode.MOBILE
+                : DeliveryMode.CONSOLE;
+
+        OTP otp = service.generateOTP(length, type);
+
+        String mobileNumber = null;
+
+        if (mode == DeliveryMode.MOBILE) {
+            System.out.print("Enter mobile number: ");
+            mobileNumber = scanner.nextLine();
+        }
+
+        service.deliverOTP(otp, mode, mobileNumber);
+
+        System.out.println("\nOTP valid for 60 seconds.");
+        System.out.println("Maximum attempts allowed: 3");
+
+        //Scanner scanner = new Scanner(System.in);
         OTPService service = new OTPService();
         System.out.println("=====================");
         System.out.println("| Select OTP Length:|");
