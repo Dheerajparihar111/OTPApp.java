@@ -25,6 +25,15 @@ public class OTPService {
 
         return new OTP(otpBuilder.toString(), expiryTime);
     }
+    public void deliverOTP(OTP otp, DeliveryMode mode, String mobileNumber) {
+
+        if (mode == DeliveryMode.MOBILE) {
+            SMSService smsService = new SMSService();
+            smsService.sendOTP(mobileNumber, otp.getCode());
+        } else {
+            System.out.println("\nGenerated OTP: " + otp.getCode());
+        }
+    }
 
     public boolean verifyOTP(OTP otp, String input) {
         return otp.getCode().equalsIgnoreCase(input);
